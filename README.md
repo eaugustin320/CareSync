@@ -123,20 +123,25 @@ CareSync supports multiple launch configurations tailored to development and dep
 
 ---
 
+## Demo Script
+A complete spoken narration script for presenting this agent and workflow is available in [DEMO_SCRIPT.txt](DEMO_SCRIPT.txt).
+
+---
+
 ## Push to GitHub
 
 1. Create a new repo at https://github.com/new
-   - Name: caresync
+   - Name: CareSync
    - Visibility: Public or Private
    - Do NOT initialize with README (you already have one)
 
 2. In your terminal, navigate into your project folder:
-   cd caresync
+   cd CareSync
    git init
    git add .
-   git commit -m "Initial commit: caresync ADK agent"
+   git commit -m "Initial commit: CareSync ADK agent"
    git branch -M main
-   git remote add origin https://github.com/<your-username>/caresync.git
+   git remote add origin https://github.com/eaugustin320/CareSync.git
    git push -u origin main
 
 3. Verify .gitignore includes:

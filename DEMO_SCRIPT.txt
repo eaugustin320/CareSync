@@ -1,0 +1,44 @@
+[0:00 — HOOK]
+Managing personal healthcare can feel incredibly overwhelming, especially when trying to coordinate medication schedules, dissect complex doctor notes, and plan meals around specific wellness goals. CareSync is designed to solve this exact problem by acting as an intelligent, secure, and helpful health concierge for patients and their caregivers.
+
+(pause)
+
+[0:20 — WHAT IT IS]
+CareSync belongs to the personal health tracking category. It is an agentic workflow that leverages the Google Agent Development Kit and the Gemini API to orchestrate specialized agents, connect with external medical/nutrition tools, and enforce strict data security boundaries.
+
+(pause)
+
+[0:40 — SHOW THE BANNER]
+(show assets/cover_page_banner.png)
+As you can see on the screen, CareSync is an automated, secure, and intelligent health companion. At a glance, it gives users control over their daily medication records, health-focused meal planning, and medical summaries in one unified dashboard.
+
+(pause)
+
+[1:00 — ARCHITECTURE]
+(show assets/architecture_diagram.png)
+Let's take a look at the workflow architecture. Every request starts at the Security Checkpoint, which scrubs sensitive information and intercepts unauthorized dosage changes. If safe, the query moves to the Orchestrator, which decides which specialist to call and formats the routing decision. The Router node then dynamically redirects the query to one of four specialized agents: our Medication Agent, our Meal Planner Agent, our Medical Notes Agent, or the General Agent for wellness guidance. Finally, before saving any medication schedules, the flow routes through a Human Approval Checkpoint to ensure nothing is logged without the user's explicit consent.
+
+(pause)
+
+[2:00 — LIVE DEMO]
+(switch to playground at localhost:18081)
+Let's see this in action with a live demo. First, I will ask, "What should I know about taking metformin?" The Orchestrator correctly routes this to the Medication Specialist. The Medication Specialist calls our custom MCP server to fetch safety data, showing me common side effects and safety warnings.
+
+(pause)
+
+Next, let's schedule a medication. I will enter: "Add Lisinopril 10mg once daily to my medication schedule." The workflow routes this to the Medication Agent, which triggers the scheduling tool. Notice how the Human Approval Checkpoint pauses the run and outputs a prompt: "✋ CareSync Safety Check: A request was made to add Lisinopril. Please confirm: Yes to approve." If I type "Yes", it successfully updates my medication list in the session state.
+
+(pause)
+
+Lastly, I will ask: "Suggest a low-carb meal plan for me." The Router directs this query to the Meal Planner Specialist, which uses the healthy recipes tool on our MCP server to instantly recommend a tailored menu and cooking instructions.
+
+(pause)
+
+[3:00 — SECURITY & MCP]
+(show security check and MCP logs)
+Security and tool integration are foundational to CareSync. The Security Checkpoint runs PII redaction and jailbreak checks on every input, logging an audit trail to stdout. Meanwhile, our MCP server isolates external APIs, letting specialists safely search for clinical recipes and translate complex abbreviations like "bid" into "twice daily."
+
+(pause)
+
+[3:30 — IMPACT / CLOSE]
+CareSync empowers patients, family members, and medical coordinators to take charge of daily health administration with safety and confidence. By combining automated reasoning with human control, CareSync makes health management safer, clearer, and more accessible. Thank you.
