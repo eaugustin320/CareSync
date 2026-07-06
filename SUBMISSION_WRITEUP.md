@@ -1,5 +1,7 @@
 # CareSync Submission Write-Up
 
+![CareSync Cover Banner](assets/cover_page_banner.png)
+
 ## 1. Problem Statement
 Managing personal healthcare is often highly disjointed. Patients struggle to track complex medication schedules, parse doctor's visit notes filled with clinical abbreviations, and coordinate dietary menus that align with health conditions. CareSync addresses this real-world need by providing a unified, safety-first health concierge that handles these disparate tasks intelligently.
 
@@ -8,7 +10,7 @@ Managing personal healthcare is often highly disjointed. Patients struggle to tr
 ## 2. Solution Architecture
 CareSync employs a structured graph-based workflow where specialized sub-agents are implemented as **first-class nodes** rather than simple tools. This allows the system to visually trace the communication flow and display active paths in the playground UI.
 
-![CareSync Workflow Diagram](assets/workflow_diagram.png)
+![CareSync Workflow Diagram](assets/architecture_diagram.png)
 
 ```mermaid
 graph TD

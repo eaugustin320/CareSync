@@ -1,6 +1,6 @@
 # CareSync — Your Personal Health Concierge 🏥
 
-![CareSync Cover Banner](assets/cover_banner.png)
+![CareSync Cover Banner](assets/cover_page_banner.png)
 
 CareSync is an advanced agentic health concierge designed to help users track medication schedules, summarize medical visit notes, and plan healthy, customized meals. It is built using the **Google Agent Development Kit (ADK) 2.0** and the Gemini API, utilizing a robust, multi-agent graph architecture with strict security guardrails and Human-in-the-Loop safety checks.
 
@@ -27,7 +27,7 @@ make playground        # Opens UI at http://localhost:18081
 ## Architecture Diagram
 CareSync employs a structured graph-based workflow where specialized sub-agents are implemented as **first-class nodes** rather than simple tools. This allows the system to visually trace the communication flow and display active paths in the playground UI.
 
-![CareSync Workflow Diagram](assets/workflow_diagram.png)
+![CareSync Workflow Diagram](assets/architecture_diagram.png)
 
 ```mermaid
 graph TD
