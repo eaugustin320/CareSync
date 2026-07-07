@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
 import json
 import re
 import logging
@@ -36,8 +37,8 @@ from app.config import config
 mcp_toolset = McpToolset(
     connection_params=StdioConnectionParams(
         server_params=StdioServerParameters(
-            command="uv",
-            args=["run", "python", "-m", "app.mcp_server"],
+            command=sys.executable,
+            args=["-m", "app.mcp_server"],
         )
     )
 )
@@ -75,13 +76,14 @@ med_schedule_agent = LlmAgent(
     instruction="""You are a Medication Specialist Agent for CareSync.
 Your role is to manage medication schedules, check for drug interactions, and answer dosage queries.
 You have access to:
-1. MCP tools to fetch medication safety information and parse abbreviations.
+1. The `get_medication_info` tool (via MCP) to fetch safety information, side effects, and details about a medication. You MUST call this tool when the user asks about a specific drug (e.g. metformin).
 2. The `save_medication_schedule` tool to schedule new medications.
 
+When asked about a medication, call `get_medication_info` first, present the details, and then remind the user to consult their doctor. Do not refuse to answer or output a general warning without calling the tool.
 If the user wants to add or update a medication in their schedule, you MUST call the `save_medication_schedule` tool.
 Do NOT attempt to update the schedule directly without calling the tool.
 Current medication list is stored in the session state at: {medication_list}.
-Always emphasize safety and remind the user to consult their healthcare provider for medical decisions.""",
+Always emphasize safety.""",
     description="Manages medication lists, schedules, and queries.",
     tools=[mcp_toolset, save_medication_schedule]
 )
@@ -91,7 +93,7 @@ meal_planner_agent = LlmAgent(
     model=config.model,
     instruction="""You are a Meal Planner Specialist Agent for CareSync.
 Your role is to recommend healthy meals, suggest recipes, and design meal plans tailored to the user's dietary requirements.
-You have access to MCP tools to get healthy recipes.
+You have access to the `get_healthy_recipes` tool (via MCP). You MUST call this tool to get healthy recipes and diet plans matching the user's request.
 Current meal plan is stored in session state at: {meal_plan}.
 Always ensure meals are healthy and suitable for standard wellness goals.""",
     description="Provides healthy meal recommendations and custom meal plans.",
@@ -103,7 +105,7 @@ medical_notes_agent = LlmAgent(
     model=config.model,
     instruction="""You are a Medical Notes Specialist Agent for CareSync.
 Your role is to parse and summarize medical visit notes, translate complex abbreviations into plain English, and extract actionable follow-up items.
-You have access to MCP tools to parse medical abbreviations.
+You have access to the `parse_medical_abbreviations` tool (via MCP). You MUST call this tool to translate medical abbreviations (like bid, qd, prn) found in the notes.
 Provide a clear summary with bullet points for key takeaways.""",
     description="Summarizes medical visit notes and extracts follow-up tasks.",
     tools=[mcp_toolset]
