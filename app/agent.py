@@ -14,6 +14,7 @@
 # limitations under the License.
 
 import sys
+import os
 import asyncio
 if sys.platform == 'win32':
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
@@ -42,7 +43,7 @@ mcp_toolset = McpToolset(
     connection_params=StdioConnectionParams(
         server_params=StdioServerParameters(
             command=sys.executable,
-            args=["-m", "app.mcp_server"],
+            args=[os.path.join(os.path.dirname(__file__), "mcp_server.py")],
         )
     )
 )
